@@ -7,7 +7,11 @@ use std::io::{self, Write};
 fn merge(strings: &[&str]) -> String {
     let utc = format!("! Last modified: {}", Utc::now().to_string());
 
-    let mut final_merge: Vec<&str> = vec!["! Blocklist: Blist", &utc, "! More info: "];
+    let mut final_merge: Vec<&str> = vec![
+        "! Blocklist: Blist",
+        &utc,
+        "! More info: https://github.com/musdx/blist",
+    ];
     let mut set: HashSet<&str> = HashSet::new();
     let mut merged_lines: Vec<&str> = Vec::new();
 
