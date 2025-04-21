@@ -15,16 +15,12 @@ fn merge(strings: &[&str]) -> String {
     let mut set: HashSet<&str> = HashSet::new();
     let mut merged_lines: Vec<&str> = Vec::new();
 
-    for (i, string) in strings.iter().enumerate() {
+    for string in strings {
         let lines: Vec<&str> = string.lines().collect();
-        if i == 0 {
-            set.extend(lines.iter().cloned());
-            merged_lines.extend(lines);
-        } else {
-            for line in lines {
-                if !set.contains(line) {
-                    merged_lines.push(line);
-                }
+        for line in lines {
+            if !set.contains(line) {
+                set.insert(line);
+                merged_lines.push(line);
             }
         }
     }
@@ -45,13 +41,16 @@ fn main() -> io::Result<()> {
         "https://malware-filter.gitlab.io/malware-filter/urlhaus-filter-agh.txt";
     let link_adguard_dns_filter: &str =
         "https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt";
+    let link_adaway_sefinek: &str =
+        "https://blocklist.sefinek.net/generated/v1/adguard/ads/adaway/hosts.fork.txt";
 
     let hagezi: String = get(link_hagezi_pro_pp).unwrap().text().unwrap();
     let oisd: String = get(link_oisd).unwrap().text().unwrap();
     let urlhaus: String = get(link_urlhaus).unwrap().text().unwrap();
     let adguard: String = get(link_adguard_dns_filter).unwrap().text().unwrap();
+    let adaway: String = get(link_adaway_sefinek).unwrap().text().unwrap();
 
-    let blocklist = merge(&[&hagezi, &oisd, &urlhaus, &adguard]);
+    let blocklist = merge(&[&hagezi, &oisd, &urlhaus, &adguard, &adaway]);
 
     file.write_all(blocklist.as_bytes())?;
     println!("done");
