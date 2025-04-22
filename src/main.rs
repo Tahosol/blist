@@ -1,4 +1,4 @@
-use chrono::prelude::*;
+use chrono::Utc;
 use reqwest::blocking::get;
 use std::collections::HashSet;
 use std::fs::File;
@@ -35,7 +35,7 @@ fn merge(strings: &[&str]) -> String {
         }
     }
 
-    merged_lines.retain(|line| !line.starts_with('!'));
+    merged_lines.retain(|line| !line.starts_with('!') && !line.starts_with('#'));
     final_merge.extend(merged_lines);
 
     final_merge.join("\n")
