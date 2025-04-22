@@ -7,20 +7,28 @@ use std::io::{self, Write};
 fn merge(strings: &[&str]) -> String {
     let utc = format!("! Last modified: {}", Utc::now().to_string());
 
-    let mut final_merge: Vec<&str> = vec![
-        "! Blocklist: Blist",
-        &utc,
-        "! More info: https://github.com/musdx/blist",
+    let mut final_merge: Vec<String> = vec![
+        "! Blocklist: Blist".to_string(),
+        utc,
+        "! More info: https://github.com/musdx/blist".to_string(),
     ];
-    let mut set: HashSet<&str> = HashSet::new();
-    let mut merged_lines: Vec<&str> = Vec::new();
+
+    let mut set: HashSet<String> = HashSet::new();
+    let mut merged_lines: Vec<String> = Vec::new();
 
     for string in strings {
         let lines: Vec<&str> = string.lines().collect();
         for line in lines {
-            if !set.contains(line) {
-                set.insert(line);
-                merged_lines.push(line);
+            if line.starts_with("0.0.0.0") || line.starts_with("127.0.0.1") {
+                let more_line = format!("||{}", line.split_whitespace().nth(1).unwrap());
+                set.insert(more_line.clone());
+                merged_lines.push(more_line);
+            } else if !set.contains(line)
+                && !line.starts_with("0.0.0.0")
+                && !line.starts_with("127.0.0.1")
+            {
+                set.insert(line.to_string());
+                merged_lines.push(line.to_string());
             }
         }
     }
@@ -43,14 +51,16 @@ fn main() -> io::Result<()> {
         "https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt";
     let link_adaway_sefinek: &str =
         "https://blocklist.sefinek.net/generated/v1/adguard/ads/adaway/hosts.fork.txt";
+    let link_yoyo: &str = "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext";
 
     let hagezi: String = get(link_hagezi_pro_pp).unwrap().text().unwrap();
     let oisd: String = get(link_oisd).unwrap().text().unwrap();
     let urlhaus: String = get(link_urlhaus).unwrap().text().unwrap();
     let adguard: String = get(link_adguard_dns_filter).unwrap().text().unwrap();
     let adaway: String = get(link_adaway_sefinek).unwrap().text().unwrap();
+    let yoyo: String = get(link_yoyo).unwrap().text().unwrap();
 
-    let blocklist = merge(&[&hagezi, &oisd, &urlhaus, &adguard, &adaway]);
+    let blocklist = merge(&[&hagezi, &oisd, &urlhaus, &adguard, &adaway, &yoyo]);
 
     file.write_all(blocklist.as_bytes())?;
     println!("done");
