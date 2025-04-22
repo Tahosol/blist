@@ -21,8 +21,10 @@ fn merge(strings: &[&str]) -> String {
         for line in lines {
             if line.starts_with("0.0.0.0") || line.starts_with("127.0.0.1") {
                 let more_line = format!("||{}", line.split_whitespace().nth(1).unwrap());
-                set.insert(more_line.clone());
-                merged_lines.push(more_line);
+                if !set.contains(&more_line) {
+                    set.insert(more_line.clone());
+                    merged_lines.push(more_line);
+                }
             } else if !set.contains(line)
                 && !line.starts_with("0.0.0.0")
                 && !line.starts_with("127.0.0.1")
@@ -52,6 +54,8 @@ fn main() -> io::Result<()> {
     let link_adaway_sefinek: &str =
         "https://blocklist.sefinek.net/generated/v1/adguard/ads/adaway/hosts.fork.txt";
     let link_yoyo: &str = "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext";
+    let link_kdahost: &str =
+        "https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt";
 
     let hagezi: String = get(link_hagezi_pro_pp).unwrap().text().unwrap();
     let oisd: String = get(link_oisd).unwrap().text().unwrap();
@@ -59,8 +63,9 @@ fn main() -> io::Result<()> {
     let adguard: String = get(link_adguard_dns_filter).unwrap().text().unwrap();
     let adaway: String = get(link_adaway_sefinek).unwrap().text().unwrap();
     let yoyo: String = get(link_yoyo).unwrap().text().unwrap();
+    let kdahost: String = get(link_kdahost).unwrap().text().unwrap();
 
-    let blocklist = merge(&[&hagezi, &oisd, &urlhaus, &adguard, &adaway, &yoyo]);
+    let blocklist = merge(&[&hagezi, &oisd, &urlhaus, &adguard, &adaway, &yoyo, &kdahost]);
 
     file.write_all(blocklist.as_bytes())?;
     println!("done");
