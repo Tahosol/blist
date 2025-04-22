@@ -20,7 +20,7 @@ fn merge(strings: &[&str]) -> String {
         let lines: Vec<&str> = string.lines().collect();
         for line in lines {
             if line.starts_with("0.0.0.0") || line.starts_with("127.0.0.1") {
-                let more_line = format!("||{}", line.split_whitespace().nth(1).unwrap());
+                let more_line = format!("||{}^", line.split_whitespace().nth(1).unwrap());
                 if !set.contains(&more_line) {
                     set.insert(more_line.clone());
                     merged_lines.push(more_line);
