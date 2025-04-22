@@ -56,6 +56,8 @@ fn main() -> io::Result<()> {
     let link_yoyo: &str = "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext";
     let link_kdahost: &str =
         "https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt";
+    let link_fademind: &str =
+        "https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.2o7Net/hosts";
 
     let hagezi: String = get(link_hagezi_pro_pp).unwrap().text().unwrap();
     let oisd: String = get(link_oisd).unwrap().text().unwrap();
@@ -64,8 +66,11 @@ fn main() -> io::Result<()> {
     let adaway: String = get(link_adaway_sefinek).unwrap().text().unwrap();
     let yoyo: String = get(link_yoyo).unwrap().text().unwrap();
     let kdahost: String = get(link_kdahost).unwrap().text().unwrap();
+    let fademind: String = get(link_fademind).unwrap().text().unwrap();
 
-    let blocklist = merge(&[&hagezi, &oisd, &urlhaus, &adguard, &adaway, &yoyo, &kdahost]);
+    let blocklist = merge(&[
+        &hagezi, &oisd, &urlhaus, &adguard, &adaway, &yoyo, &kdahost, &fademind,
+    ]);
 
     file.write_all(blocklist.as_bytes())?;
     println!("done");
