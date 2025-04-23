@@ -6,6 +6,7 @@
 - https://blocklist.sefinek.net/generated/v1/adguard/ads/adaway/hosts.fork.txt
 - https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext
 - https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt
+- https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareAdGuardHome.txt
 
 ### Raw link: https://raw.githubusercontent.com/musdx/blist/refs/heads/master/blocklist.txt
 

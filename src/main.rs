@@ -25,10 +25,11 @@ fn merge(strings: &[&str]) -> String {
                     set.insert(more_line.clone());
                     merged_lines.push(more_line);
                 }
-            } else if !set.contains(line)
-                && !line.starts_with("0.0.0.0")
-                && !line.starts_with("127.0.0.1")
-            {
+            } else if !set.contains(line) && (line.starts_with("||") || line.starts_with("@@")) {
+                set.insert(line.to_string());
+                merged_lines.push(line.to_string());
+            } else if !set.contains(line) {
+                //for now I am not sure about the fonction of some line
                 set.insert(line.to_string());
                 merged_lines.push(line.to_string());
             }
@@ -58,6 +59,7 @@ fn main() -> io::Result<()> {
         "https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt";
     let link_fademind: &str =
         "https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.2o7Net/hosts";
+    let link_dandelion_anti_malware: &str = "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareAdGuardHome.txt";
 
     let hagezi: String = get(link_hagezi_pro_pp).unwrap().text().unwrap();
     let oisd: String = get(link_oisd).unwrap().text().unwrap();
@@ -67,9 +69,18 @@ fn main() -> io::Result<()> {
     let yoyo: String = get(link_yoyo).unwrap().text().unwrap();
     let kdahost: String = get(link_kdahost).unwrap().text().unwrap();
     let fademind: String = get(link_fademind).unwrap().text().unwrap();
+    let dandelion_anti_mal: String = get(link_dandelion_anti_malware).unwrap().text().unwrap();
 
     let blocklist = merge(&[
-        &hagezi, &oisd, &urlhaus, &adguard, &adaway, &yoyo, &kdahost, &fademind,
+        &hagezi,
+        &oisd,
+        &urlhaus,
+        &adguard,
+        &adaway,
+        &yoyo,
+        &kdahost,
+        &fademind,
+        &dandelion_anti_mal,
     ]);
 
     file.write_all(blocklist.as_bytes())?;
