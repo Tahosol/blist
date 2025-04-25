@@ -3,6 +3,7 @@ use reqwest::blocking::get;
 use std::collections::HashSet;
 use std::fs::File;
 use std::io::{self, Write};
+use std::time::Instant;
 
 fn merge(strings: &[&str]) -> String {
     let utc = format!("! Last modified: {}", Utc::now().to_string());
@@ -43,6 +44,7 @@ fn merge(strings: &[&str]) -> String {
 }
 
 fn main() -> io::Result<()> {
+    let time = Instant::now();
     let mut file = File::create("blocklist.txt")?;
 
     let link_hagezi_pro_pp: &str =
@@ -84,7 +86,8 @@ fn main() -> io::Result<()> {
     ]);
 
     file.write_all(blocklist.as_bytes())?;
-    println!("done");
+    let end = time.elapsed();
+    println!("Done after {:?}", end);
 
     Ok(())
 }
