@@ -50,11 +50,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut content = vec![];
 
     for url in urls_list {
-        let response: String = ureq::get(url)
-            .header("Example-Header", "header value")
-            .call()?
-            .body_mut()
-            .read_to_string()?;
+        let response: String = ureq::get(url).call()?.body_mut().read_to_string()?;
         content.push(response);
     }
 
