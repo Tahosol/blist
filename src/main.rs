@@ -1,11 +1,11 @@
 use chrono::Utc;
-use reqwest::blocking::get;
 use std::collections::HashSet;
-use std::fs::File;
-use std::io::{self, Write};
+use std::error::Error;
+use std::fs::{self, File};
+use std::io::Write;
 use std::time::Instant;
 
-fn merge(strings: &[&str]) -> String {
+fn merge(strings: &[String]) -> String {
     let utc = format!("! Last modified: {}", Utc::now().to_string());
 
     let mut final_merge: Vec<String> = vec![
@@ -43,51 +43,32 @@ fn merge(strings: &[&str]) -> String {
     final_merge.join("\n")
 }
 
-fn main() -> io::Result<()> {
+fn main() -> Result<(), Box<dyn Error>> {
     let time = Instant::now();
     let mut file = File::create("blocklist.txt")?;
+    let urls_list = read_urls("list.txt")?;
+    let mut content = vec![];
 
-    let link_hagezi_pro_pp: &str =
-        "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.plus.txt";
-    let link_oisd: &str = "https://big.oisd.nl";
-    let link_urlhaus: &str =
-        "https://malware-filter.gitlab.io/malware-filter/urlhaus-filter-agh.txt";
-    let link_adguard_dns_filter: &str =
-        "https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt";
-    let link_adaway_sefinek: &str =
-        "https://blocklist.sefinek.net/generated/v1/adguard/ads/adaway/hosts.fork.txt";
-    let link_yoyo: &str = "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext";
-    let link_kdahost: &str =
-        "https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt";
-    let link_fademind: &str =
-        "https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.2o7Net/hosts";
-    let link_dandelion_anti_malware: &str = "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareAdGuardHome.txt";
+    for url in urls_list {
+        let response: String = ureq::get(url)
+            .header("Example-Header", "header value")
+            .call()?
+            .body_mut()
+            .read_to_string()?;
+        content.push(response);
+    }
 
-    let hagezi: String = get(link_hagezi_pro_pp).unwrap().text().unwrap();
-    let oisd: String = get(link_oisd).unwrap().text().unwrap();
-    let urlhaus: String = get(link_urlhaus).unwrap().text().unwrap();
-    let adguard: String = get(link_adguard_dns_filter).unwrap().text().unwrap();
-    let adaway: String = get(link_adaway_sefinek).unwrap().text().unwrap();
-    let yoyo: String = get(link_yoyo).unwrap().text().unwrap();
-    let kdahost: String = get(link_kdahost).unwrap().text().unwrap();
-    let fademind: String = get(link_fademind).unwrap().text().unwrap();
-    let dandelion_anti_mal: String = get(link_dandelion_anti_malware).unwrap().text().unwrap();
-
-    let blocklist = merge(&[
-        &hagezi,
-        &oisd,
-        &urlhaus,
-        &adguard,
-        &adaway,
-        &yoyo,
-        &kdahost,
-        &fademind,
-        &dandelion_anti_mal,
-    ]);
+    let blocklist = merge(&content);
 
     file.write_all(blocklist.as_bytes())?;
     let end = time.elapsed();
     println!("Done after {:?}", end);
 
     Ok(())
+}
+
+fn read_urls(file_path: &str) -> Result<Vec<String>, Box<dyn Error>> {
+    let contents = fs::read_to_string(file_path)?;
+    let urls: Vec<String> = contents.lines().map(|line| line.to_string()).collect();
+    Ok(urls)
 }

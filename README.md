@@ -12,6 +12,7 @@ This made by me to reduce duplication domain when I use multiple blocklists for 
 - https://blocklist.sefinek.net/generated/v1/adguard/ads/adaway/hosts.fork.txt
 - https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext
 - https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt
+- https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.2o7Net/hosts
 - https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareAdGuardHome.txt
 
 # Usage
