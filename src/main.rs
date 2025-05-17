@@ -37,7 +37,7 @@ fn merge(strings: &[String]) -> String {
         }
     }
 
-    merged_lines.retain(|line| !line.starts_with('!') && !line.starts_with('#'));
+    merged_lines.retain(|line| !line.trim().starts_with('!') && !line.trim().starts_with('#'));
     final_merge.extend(merged_lines);
 
     final_merge.join("\n")

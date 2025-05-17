@@ -14,6 +14,7 @@ This made by me to reduce duplication domain when I use multiple blocklists for 
 - https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt
 - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.2o7Net/hosts
 - https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareAdGuardHome.txt
+- https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 
 # Usage
 
