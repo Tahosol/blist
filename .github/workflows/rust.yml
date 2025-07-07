@@ -14,22 +14,24 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    
     - name: Build
       run: cargo build --verbose
+      
     - name: Run tests
       run: cargo test --verbose
+      
     - name: Build the project
       run: cargo build --release
 
-    - name: Run your code
+    - name: Run code
       run: cargo run --release
 
     - name: Commit and push changes
+      if: success()
       run: |
-        git config --local user.email "blue.neutron460@slmail.me"
-        git config --local user.name "musdx"
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
         git add .
         git commit -m "Automated update"
         git push
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
