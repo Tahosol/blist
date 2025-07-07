@@ -34,4 +34,4 @@ jobs:
         git config --local user.name "GitHub Action"
         git add .
         git commit -m "Automated update"
-        git push
+        git push origin HEAD:master
