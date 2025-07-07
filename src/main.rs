@@ -43,15 +43,31 @@ fn merge(strings: &[String]) -> String {
     final_merge.join("\n")
 }
 
-fn main() -> Result<(), Box<dyn Error>> {
+use reqwest::Client;
+use tokio::task::JoinHandle;
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn Error>> {
     let time = Instant::now();
     let mut file = File::create("blocklist.txt")?;
     let urls_list = read_urls("list.txt")?;
     let mut content = vec![];
 
-    for url in urls_list {
-        let response: String = ureq::get(url).call()?.body_mut().read_to_string()?;
-        content.push(response);
+    let client = Client::new();
+
+    let handles: Vec<JoinHandle<Result<String, reqwest::Error>>> = urls_list
+        .into_iter()
+        .map(|url| {
+            let client = client.clone();
+            tokio::spawn(async move { fetch_url(&client, &url).await })
+        })
+        .collect();
+
+    for handle in handles {
+        match handle.await {
+            Ok(Ok(text)) => content.push(text),
+            Ok(Err(e)) => eprintln!("Error fetching url: {:?}", e),
+            Err(e) => eprintln!("Join error: {:?}", e),
+        }
     }
 
     let blocklist = merge(&content);
@@ -61,6 +77,12 @@ fn main() -> Result<(), Box<dyn Error>> {
     println!("Done after {:?}", end);
 
     Ok(())
+}
+
+async fn fetch_url(client: &Client, url: &str) -> Result<String, reqwest::Error> {
+    let res = client.get(url).send().await?;
+    let content = res.text().await?;
+    Ok(content)
 }
 
 fn read_urls(file_path: &str) -> Result<Vec<String>, Box<dyn Error>> {

@@ -15,6 +15,8 @@ This made by me to reduce duplication domain when I use multiple blocklists for 
 - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.2o7Net/hosts
 - https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareAdGuardHome.txt
 - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+- https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts
+- https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
 
 # Usage
 
