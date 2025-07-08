@@ -1,3 +1,4 @@
+[![update](https://github.com/musdx/blist/actions/workflows/rust.yml/badge.svg)](https://github.com/musdx/blist/actions/workflows/rust.yml)
 # About Blist:
 
 This made by me to reduce duplication domain when I use multiple blocklists for adguard home. If you use this blocklist, do not use any other list in the credit section. This blocklist should be good for any pihole/adguard home setup. If you want something more like block NSFW or Gambling or something else you can find and add them your self.
