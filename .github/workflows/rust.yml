@@ -35,3 +35,5 @@ jobs:
         git add .
         git commit -m "Automated update"
         git push origin HEAD:master
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
