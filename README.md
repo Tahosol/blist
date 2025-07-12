@@ -18,6 +18,7 @@ This made by me to reduce duplication domain when I use multiple blocklists for 
 - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
 - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts
 - https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
+- https://phishing.army/download/phishing_army_blocklist_extended.txt
 
 # Usage
 
