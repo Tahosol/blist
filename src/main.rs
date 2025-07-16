@@ -30,7 +30,7 @@ fn merge(strings: &[String]) -> String {
                 || line.trim().starts_with('#')
                 || line.trim().starts_with('[')
             {
-                println!("removed comment");
+                // println!("removed comment");
             } else if !set.contains(line) && (line.starts_with("||") || line.starts_with("@@")) {
                 set.insert(line.to_string());
                 merged_lines.push(line.to_string());
