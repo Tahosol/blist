@@ -21,6 +21,7 @@ This made by me to reduce duplication domain when I use multiple blocklists for 
 - https://phishing.army/download/phishing_army_blocklist_extended.txt
 - https://adguardteam.github.io/HostlistsRegistry/assets/filter_30.txt
 - https://adguardteam.github.io/HostlistsRegistry/assets/filter_53.txt
+- https://raw.githubusercontent.com/badmojr/1Hosts/master/Pro/adblock.txt
 
 # Usage
 
