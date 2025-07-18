@@ -22,7 +22,15 @@ This made by me to reduce duplication domain when I use multiple blocklists for 
 - https://adguardteam.github.io/HostlistsRegistry/assets/filter_30.txt
 - https://adguardteam.github.io/HostlistsRegistry/assets/filter_53.txt
 - https://raw.githubusercontent.com/badmojr/1Hosts/master/Pro/adblock.txt
-
+- https://v.firebog.net/hosts/Prigent-Ads.txt
+- https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt
+- https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
+- https://lists.cyberhost.uk/malware.txt
+- https://bitbucket.org/ethanr/dns-blacklists/raw/8575c9f96e5b4a1308f2f12394abd86d0927a4a0/bad_lists/Mandiant_APT1_Report_Appendix_D.txt
+- https://v.firebog.net/hosts/RPiList-Malware.txt
+- https://raw.githubusercontent.com/AssoEchap/stalkerware-indicators/master/generated/hosts
+- https://blocklistproject.github.io/Lists/adguard/abuse-ags.txt
+- https://blocklistproject.github.io/Lists/adguard/ads-ags.txt
 # Usage
 
 ### Raw link: https://raw.githubusercontent.com/musdx/blist/refs/heads/master/blocklist.txt
