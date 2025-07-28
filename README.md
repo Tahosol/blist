@@ -32,6 +32,10 @@ This made by me to reduce duplication domain when I use multiple blocklists for 
 - https://blocklistproject.github.io/Lists/adguard/abuse-ags.txt
 - https://blocklistproject.github.io/Lists/adguard/ads-ags.txt
 - https://adguardteam.github.io/HostlistsRegistry/assets/filter_16.txt
+- https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/native.tiktok.txt
+- https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/native.winoffice.txt
+- https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/native.vivo.txt
+- https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/native.samsung.txt
 
 # Usage
 
