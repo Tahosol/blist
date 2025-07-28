@@ -31,6 +31,8 @@ This made by me to reduce duplication domain when I use multiple blocklists for 
 - https://raw.githubusercontent.com/AssoEchap/stalkerware-indicators/master/generated/hosts
 - https://blocklistproject.github.io/Lists/adguard/abuse-ags.txt
 - https://blocklistproject.github.io/Lists/adguard/ads-ags.txt
+- https://adguardteam.github.io/HostlistsRegistry/assets/filter_16.txt
+
 # Usage
 
 ### Raw link: https://raw.githubusercontent.com/musdx/blist/refs/heads/master/blocklist.txt

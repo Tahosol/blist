@@ -23,3 +23,5 @@ https://v.firebog.net/hosts/RPiList-Malware.txt
 https://raw.githubusercontent.com/AssoEchap/stalkerware-indicators/master/generated/hosts
 https://blocklistproject.github.io/Lists/adguard/abuse-ags.txt
 https://blocklistproject.github.io/Lists/adguard/ads-ags.txt
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_16.txt
+https://adguardteam.github.io/HostlistsRegistry/assets/filter_61.txt
