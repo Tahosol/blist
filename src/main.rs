@@ -17,6 +17,8 @@ fn merge(strings: &[String]) -> String {
     let mut set: HashSet<String> = HashSet::new();
     let mut merged_lines: Vec<String> = Vec::new();
 
+    use std::time::Instant;
+    let now = Instant::now();
     for string in strings {
         let lines: Vec<&str> = string.lines().collect();
         for line in lines {
@@ -50,6 +52,8 @@ fn merge(strings: &[String]) -> String {
             }
         }
     }
+    let elapsed = now.elapsed();
+    println!("Elapsed in merge: {:.2?}", elapsed);
 
     // merged_lines.retain(|line| !line.trim().starts_with('!') && !line.trim().starts_with('#'));
     final_merge.extend(merged_lines);
