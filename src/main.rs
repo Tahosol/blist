@@ -41,7 +41,7 @@ fn merge(strings: &[String]) -> String {
     let elapsed = now.elapsed();
     println!("Elapsed in merge: {:.2?}", elapsed);
     for i in filter_set.iter() {
-        if i.starts_with("@@") || i.contains("*") || i.contains("/") {
+        if i.starts_with("@@") || i.contains("/") {
             final_merge.push(i.to_string());
         } else {
             final_merge.push(format!("||{}^", i));

@@ -40,6 +40,16 @@ This made by me to reduce duplication domain when I use multiple blocklists for 
 - https://raw.githubusercontent.com/AssoEchap/stalkerware-indicators/master/generated/hosts
 - https://v.firebog.net/hosts/Easylist.txt
 - https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
+- https://adguardteam.github.io/HostlistsRegistry/assets/filter_29.txt
+- https://raw.githubusercontent.com/durablenapkin/scamblocklist/refs/heads/master/adguard.txt
+- https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/refs/heads/master/RAW/Scam
+- https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/refs/heads/master/RAW/Tracking
+- https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/refs/heads/master/RAW/Malware
+- https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/refs/heads/master/RAW/Ads
+- https://adguardteam.github.io/HostlistsRegistry/assets/filter_21.txt
+- https://adguardteam.github.io/HostlistsRegistry/assets/filter_25.txt
+- https://adguardteam.github.io/HostlistsRegistry/assets/filter_15.txt
+- https://adguardteam.github.io/HostlistsRegistry/assets/filter_7.txt
 
 # Usage
 
