@@ -36,6 +36,10 @@ This made by me to reduce duplication domain when I use multiple blocklists for 
 - https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/native.winoffice.txt
 - https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/native.vivo.txt
 - https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/native.samsung.txt
+- https://v.firebog.net/hosts/Easyprivacy.txt
+- https://raw.githubusercontent.com/AssoEchap/stalkerware-indicators/master/generated/hosts
+- https://v.firebog.net/hosts/Easylist.txt
+- https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
 
 # Usage
 
