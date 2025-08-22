@@ -8,7 +8,7 @@ use std::io::Write;
 use std::time::Instant;
 use tokio::task::JoinHandle;
 
-fn merge(strings: &[String]) -> String {
+fn filter(strings: &[String]) -> String {
     let utc = format!("! Last modified: {}", Utc::now().to_string());
 
     let mut final_merge: Vec<String> = vec![
@@ -145,7 +145,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         }
     }
 
-    let blocklist = merge(&content);
+    let blocklist = filter(&content);
 
     file.write_all(blocklist.as_bytes())?;
     let end = time.elapsed();
