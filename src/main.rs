@@ -102,12 +102,10 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let urls_list = read_urls("credit.txt")?;
     let mut content = vec![];
 
-    let client = Client::new();
-
     let handles: Vec<JoinHandle<Result<String, reqwest::Error>>> = urls_list
         .into_iter()
         .map(|url| {
-            let client = client.clone();
+            let client = Client::new();
             tokio::spawn(async move { fetch_url(&client, &url).await })
         })
         .collect();
