@@ -1,4 +1,5 @@
 use chrono::Utc;
+use rayon::prelude::*;
 use reqwest::Client;
 use std::collections::HashSet;
 use std::error::Error;
@@ -20,18 +21,31 @@ fn merge(strings: &[String]) -> String {
     let mut sub_domain: Vec<String> = vec![];
 
     let now = Instant::now();
-    for string in strings {
-        let lines: Vec<&str> = string.lines().map(|l| l.trim()).collect();
-        for line in lines {
-            if let Some(url) = clear_url(line) {
-                if !url.is_empty() && !has_sub_domain(&url) && !filter_set.contains(&url) {
-                    filter_set.insert(url);
-                } else if !url.is_empty() {
-                    sub_domain.push(url);
-                }
-            } else if !filter_set.contains(line) {
-                filter_set.insert(line.to_string());
+
+    let all_lines: Vec<String> = strings
+        .par_iter()
+        .flat_map(|string| {
+            string
+                .lines()
+                .map(|l| l.trim().to_string())
+                .collect::<Vec<_>>()
+        })
+        .collect();
+
+    let processed: Vec<(Option<String>, String)> = all_lines
+        .par_iter()
+        .map(|line| (clear_url(line), line.clone()))
+        .collect();
+
+    for (url_opt, line) in processed {
+        if let Some(url) = url_opt {
+            if !url.is_empty() && !has_sub_domain(&url) && !filter_set.contains(&url) {
+                filter_set.insert(url);
+            } else if !url.is_empty() {
+                sub_domain.push(url);
             }
+        } else if !filter_set.contains(&line) {
+            filter_set.insert(line);
         }
     }
     for i in sub_domain {
@@ -40,8 +54,7 @@ fn merge(strings: &[String]) -> String {
             filter_set.insert(i);
         }
     }
-    let elapsed = now.elapsed();
-    println!("Elapsed in merge: {:.2?}", elapsed);
+
     for i in filter_set.iter() {
         if i.starts_with("@@") || i.contains("/") {
             final_merge.push(i.to_string());
@@ -49,7 +62,8 @@ fn merge(strings: &[String]) -> String {
             final_merge.push(format!("||{}^", i));
         }
     }
-
+    let elapsed = now.elapsed();
+    println!("Elapsed in merge: {:.2?}", elapsed);
     final_merge.join("\n")
 }
 fn clear_url(line: &str) -> Option<String> {
