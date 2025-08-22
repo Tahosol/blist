@@ -1,9 +1,11 @@
 use chrono::Utc;
+use reqwest::Client;
 use std::collections::HashSet;
 use std::error::Error;
 use std::fs::{self, File};
 use std::io::Write;
 use std::time::Instant;
+use tokio::task::JoinHandle;
 
 fn merge(strings: &[String]) -> String {
     let utc = format!("! Last modified: {}", Utc::now().to_string());
@@ -93,8 +95,19 @@ fn get_root_domain(domain: &str) -> String {
         format!("{}.{}", parts[parts.len() - 2], parts[parts.len() - 1])
     }
 }
-use reqwest::Client;
-use tokio::task::JoinHandle;
+
+async fn fetch_url(client: &Client, url: &str) -> Result<String, reqwest::Error> {
+    let res = client.get(url).send().await?;
+    let content = res.text().await?;
+    Ok(content)
+}
+
+fn read_urls(file_path: &str) -> Result<Vec<String>, Box<dyn Error>> {
+    let contents = fs::read_to_string(file_path)?;
+    let urls: Vec<String> = contents.lines().map(|line| line.to_string()).collect();
+    Ok(urls)
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     let time = Instant::now();
@@ -125,16 +138,4 @@ async fn main() -> Result<(), Box<dyn Error>> {
     println!("Done after {:?}", end);
 
     Ok(())
-}
-
-async fn fetch_url(client: &Client, url: &str) -> Result<String, reqwest::Error> {
-    let res = client.get(url).send().await?;
-    let content = res.text().await?;
-    Ok(content)
-}
-
-fn read_urls(file_path: &str) -> Result<Vec<String>, Box<dyn Error>> {
-    let contents = fs::read_to_string(file_path)?;
-    let urls: Vec<String> = contents.lines().map(|line| line.to_string()).collect();
-    Ok(urls)
 }
