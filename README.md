@@ -12,5 +12,4 @@ It is in the [credit.txt](https://github.com/Tahosol/blist/blob/master/credit.tx
 
 Put raw link into your pihole/adguard home filter list
 
-
-## If you want to add a blocklist into this make a new issue
+## DO NOT USE THIS WITH ANY OTHER BLOCKLIST IN THE CREDIT FILE
