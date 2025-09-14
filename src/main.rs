@@ -91,19 +91,28 @@ fn has_sub_domain(url: &str) -> bool {
     }
     false
 }
+use std::sync::OnceLock;
+
+static TWO_PART_TLDS: OnceLock<HashSet<String>> = OnceLock::new();
+
 fn get_root_domain(domain: &str) -> String {
     let parts: Vec<&str> = domain.split('.').collect();
     if parts.len() < 2 {
         return domain.to_string();
     }
 
-    let two_part_tlds = [
-        "co.uk", "org.uk", "gov.uk", "ac.uk", "com.au", "net.au", "org.au", "co.jp", "co.in",
-        "com.br", "com.cn", "com.tw", "com.sg", "com.hk", "com.tr", "com.mx", "com.ru",
-    ];
+    let two_part_tlds = TWO_PART_TLDS.get_or_init(|| {
+        let content = fs::read_to_string("2part.txt").unwrap();
+        content.lines().map(|line| line.to_string()).collect()
+    });
+
+    // let two_part_tlds = [
+    //     "co.uk", "org.uk", "gov.uk", "ac.uk", "com.au", "net.au", "org.au", "co.jp", "co.in",
+    //     "com.br", "com.cn", "com.tw", "com.sg", "com.hk", "com.tr", "com.mx", "com.ru",
+    // ];
 
     let last_two = format!("{}.{}", parts[parts.len() - 2], parts[parts.len() - 1]);
-    if two_part_tlds.contains(&last_two.as_str()) && parts.len() >= 3 {
+    if two_part_tlds.contains(&last_two) && parts.len() >= 3 {
         format!("{}.{}", parts[parts.len() - 3], last_two)
     } else {
         format!("{}.{}", parts[parts.len() - 2], parts[parts.len() - 1])
