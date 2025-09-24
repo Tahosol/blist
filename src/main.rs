@@ -106,11 +106,6 @@ fn get_root_domain(domain: &str) -> String {
         content.lines().map(|line| line.to_string()).collect()
     });
 
-    // let two_part_tlds = [
-    //     "co.uk", "org.uk", "gov.uk", "ac.uk", "com.au", "net.au", "org.au", "co.jp", "co.in",
-    //     "com.br", "com.cn", "com.tw", "com.sg", "com.hk", "com.tr", "com.mx", "com.ru",
-    // ];
-
     let last_two = format!("{}.{}", parts[parts.len() - 2], parts[parts.len() - 1]);
     if two_part_tlds.contains(&last_two) && parts.len() >= 3 {
         format!("{}.{}", parts[parts.len() - 3], last_two)
@@ -149,8 +144,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
     for handle in handles {
         match handle.await {
             Ok(Ok(text)) => content.push(text),
-            Ok(Err(e)) => eprintln!("Error fetching url: {:?}", e),
-            Err(e) => eprintln!("Join error: {:?}", e),
+            Ok(Err(e)) => println!("Error fetching url: {:?}", e),
+            Err(e) => println!("Join error: {:?}", e),
         }
     }
 
